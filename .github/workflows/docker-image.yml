@@ -1,6 +1,8 @@
 name: Secure MQTT Publish from Docker
 
 on:
+  push:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
