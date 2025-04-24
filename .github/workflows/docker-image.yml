@@ -21,11 +21,19 @@ jobs:
             -e IOT_KEY="${{ secrets.IOT_KEY }}" \
             -e IOT_CA="${{ secrets.IOT_CA }}" \
             mqtt-publisher \
-            mosquitto_pub \
-              -h "$IOT_ENDPOINT" \
-              -p 8883 \
-              -t "test/topic" \
-              -m '{"data": "from GitHub CI securely"}' \
-              --cafile <(echo "$IOT_CA") \
-              --cert <(echo "$IOT_CERT") \
-              --key <(echo "$IOT_KEY")
+            sh -c '
+              echo "$IOT_CA" > /tmp/ca.pem && \
+              echo "$IOT_CERT" > /tmp/cert.pem && \
+              echo "$IOT_KEY" > /tmp/key.pem && \
+              chmod 644 /tmp/ca.pem && \
+              chmod 644 /tmp/cert.pem && \
+              chmod 600 /tmp/key.pem && \
+              mosquitto_pub \
+                -h "$IOT_ENDPOINT" \
+                -p 8883 \
+                -t "test/topic" \
+                -m '\''{"data": "from GitHub CI securely"}'\'' \
+                --cafile /tmp/ca.pem \
+                --cert /tmp/cert.pem \
+                --key /tmp/key.pem
+            '
