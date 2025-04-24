@@ -1,0 +1,31 @@
+name: Secure MQTT Publish from Docker
+
+on:
+  workflow_dispatch:
+
+jobs:
+  mqtt-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build . -t mqtt-publisher
+
+      - name: Run MQTT publish
+        run: |
+          docker run --rm \
+            -e IOT_ENDPOINT="${{ secrets.IOT_ENDPOINT }}" \
+            -e IOT_CERT="${{ secrets.IOT_CERT }}" \
+            -e IOT_KEY="${{ secrets.IOT_KEY }}" \
+            -e IOT_CA="${{ secrets.IOT_CA }}" \
+            mqtt-publisher \
+            mosquitto_pub \
+              -h "$IOT_ENDPOINT" \
+              -p 8883 \
+              -t "test/topic" \
+              -m '{"data": "from GitHub CI securely"}' \
+              --cafile <(echo "$IOT_CA") \
+              --cert <(echo "$IOT_CERT") \
+              --key <(echo "$IOT_KEY")
