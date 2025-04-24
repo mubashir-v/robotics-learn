@@ -1,4 +1,4 @@
-*.ino
+
 *ino.bootloader.bin
 *ino.bootloader.bin
 *ino.elf
@@ -8,3 +8,5 @@
 *.key
 *.pem
 *.crt
+data/
+include/

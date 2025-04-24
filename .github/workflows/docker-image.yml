@@ -34,7 +34,7 @@ jobs:
                 -h "$IOT_ENDPOINT" \
                 -p 8883 \
                 -t "esp32/update" \
-                -m "https://raw.githubusercontent.com/mubashir-v/robotics-learn/main/lidar_servo_luna/build/esp32.esp32.esp32da/lidar_servo_luna.ino.bin" \
+                -m "https://raw.githubusercontent.com/mubashir-v/robotics-learn/main/servo-lunar-lidar/.pio/build/esp32dev/firmware.bin" \
                 --cafile /tmp/ca.pem \
                 --cert /tmp/cert.pem \
                 --key /tmp/key.pem
