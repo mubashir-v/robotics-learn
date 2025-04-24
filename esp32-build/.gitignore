@@ -1,0 +1,5 @@
+# Ignore ALL .pio contents EXCEPT firmware.bin
+.pio/build/esp32dev/*
+!.pio/build/esp32dev/firmware.bin
+*.checksum
+

@@ -1,0 +1,4 @@
+arduino-libraries/Arduino_ESP32_OTA @ ^0.1.0
+knolleary/PubSubClient @ ^2.8
+madhephaestus/ESP32Servo @ ^0.11.0
+arduino-libraries/Arduino_DebugUtils@^1.1.1
