@@ -1,0 +1,7 @@
+*.ino
+*ino.bootloader.bin
+*ino.bootloader.bin
+*ino.elf
+*ino.map
+*ino.merged.bin
+*ino.partitions.bin
