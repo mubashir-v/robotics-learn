@@ -5,3 +5,6 @@
 *ino.map
 *ino.merged.bin
 *ino.partitions.bin
+*.key
+*.pem
+*.crt
