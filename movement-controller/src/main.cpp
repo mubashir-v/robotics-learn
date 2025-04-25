@@ -12,6 +12,8 @@ const char *wifi_password[MAX_NETWORKS] = {"V3ttuv3dic#alil", "12345678"};
 const char *mqtt_server = "a1g47hlvkrz0y5-ats.iot.ap-south-1.amazonaws.com";
 const int mqtt_port = 8883;
 
+// OTA Firmware for Movement Controll
+const char *ota_firmware_url ="https://raw.githubusercontent.com/mubashir-v/robotics-learn/main/movement-controller/.pio/build/esp32dev/firmware.bin";
 
 // MQTT Topics
 const char *mqtt_lidar_topic = "esp32/lidar/distance";
@@ -33,7 +35,7 @@ void mqttCallback(char *topic, byte *payload, unsigned int length) {
   payload[length] = '\0';
   String msg = String((char *)payload);
   if (String(topic) == ota_topic) {
-    iot->performOTA(msg);
+    iot->performOTA(ota_firmware_url);
   } else if (String(topic) == control_topic) {
     if (msg == "start") isReading = true;
     else if (msg == "stop") isReading = false;
