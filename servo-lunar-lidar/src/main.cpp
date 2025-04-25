@@ -18,26 +18,17 @@ const char *password[MAX_NETWORKS] = {
     "12345678"         // Secondary password
 };
 
+
 // ====== AWS IoT Core Settings ======
 const char *mqtt_server = "a1g47hlvkrz0y5-ats.iot.ap-south-1.amazonaws.com";
 const int mqtt_port = 8883;
-const char *mqtt_lidar_topic = "esp32/lidar/distance";
-const char *ota_topic = "esp32/update";
-const char *control_topic = "esp32/lidar/control";
-bool isReading = false;
 
-// ====== TF-Luna I2C Settings ======
-#define LUNA_ADDR 0x10
 
+// ====== Wifi CLient ======
 WiFiClientSecure secureClient;
 PubSubClient mqttClient(secureClient);
 
-// ====== Servo ========
 
-#define SERVO_PIN 13
-Servo myServo;
-int servoAngle = 0;
-bool servoIncreasing = true;
 
 // ====== Connect to Wi-Fi with fallback ======
 void connectWiFi()
@@ -78,6 +69,7 @@ void connectWiFi()
   Serial.println("Failed to connect to any WiFi network");
   // You might want to add ESP.restart() here or other recovery logic
 }
+
 
 // ====== OTA Logic ======
 void performOTA(String bin_url)
@@ -178,6 +170,27 @@ void connectMQTT()
     }
   }
 }
+
+// PROJECT CODE START 
+// Project Specific Variables  and Const
+
+const char *mqtt_lidar_topic = "esp32/lidar/distance";
+const char *ota_topic = "esp32/update";
+const char *control_topic = "esp32/lidar/control";
+bool isReading = false;
+
+// ====== TF-Luna I2C Settings ======
+#define LUNA_ADDR 0x10
+
+// ====== Servo and Variables ========
+#define SERVO_PIN 13
+Servo myServo;
+int servoAngle = 0;
+bool servoIncreasing = true;
+
+
+
+
 
 // ====== TF-Luna I2C Read ======
 int readLidarDistance()
