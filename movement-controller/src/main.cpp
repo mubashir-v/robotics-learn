@@ -20,6 +20,7 @@ const char *ota_firmware_url = "https://raw.githubusercontent.com/mubashir-v/rob
 // MQTT Topics
 const char *ota_topic = "esp32/update";
 const char *control_topic = "esp32/motor/control";  // Topic for motor control
+const char *acknowledge_topic = "esp32/acknowledge/";  // Topic for motor control
 
 // Motor Pins for L298N
 const int IN1 = 26;  // GPIO 26
@@ -99,6 +100,9 @@ void mqttCallback(char *topic, byte *payload, unsigned int length)
     int pwm = doc["pwm"];  // PWM value (0-255)
     
     // Call function to control the motor based on the parsed values
+    String payload = "{\"message\":\"motor-update\",\"motor\":" + String(motor) +  ",\"pwm\":" + String(pwm) + ",\"direction\":" + String(direction) + "}";
+    Serial.println("Publishing: " + payload);
+    iot->mqttClient.publish(acknowledge_topic, payload.c_str());
     controlMotor(motor, direction, pwm);
   }
   else
